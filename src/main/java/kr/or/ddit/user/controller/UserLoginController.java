@@ -55,9 +55,6 @@ public class UserLoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("userid", loginUser.getUserid());
 		
-//		ServletContext application = request.getServletContext();
-//		application.setAttribute("userid", loginUser.getUserid());
-		
 		request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
 	}
 

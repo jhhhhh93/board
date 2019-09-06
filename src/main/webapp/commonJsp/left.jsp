@@ -11,7 +11,7 @@
 <script>
 	$(function(){
 		$.ajax({
-			url : "/boardList",
+			url : "${cp}/boardList",
 			dataType : 'json',
 			success : function(datas){
 				var code = "";

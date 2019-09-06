@@ -38,9 +38,9 @@
 			<h2 class="form-signin-heading">Please sign in</h2>
 
 			<label for="userId" class="sr-only">userId</label>
-			<input value="sally" name="userId" type="text" id="userId" class="form-control" placeholder="userId" required autofocus> 
+			<input value="moon" name="userId" type="text" id="userId" class="form-control" placeholder="userId" required autofocus> 
 			<label for="pass"class="sr-only">Password</label> 
-			<input value="sally1234" name="pass" type="password" id="pass" class="form-control" placeholder="Password" required>
+			<input value="moon1234" name="pass" type="password" id="pass" class="form-control" placeholder="Password" required>
 
 			<button id="signinBtn" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		</form>
