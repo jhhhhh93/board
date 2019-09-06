@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+	<select id="getReplyList" parameterType="Integer" resultType="replyVo">
+		select *
+		from reply2
+		where post_no = #{post_no}
+		order by 1
+	</select>
+	
+	<insert id="insertReply" parameterType="replyVo">
+		insert into reply2
+		values(reply_seq2.nextval, #{reply_cont}, sysdate, 'y', #{post_no}, #{userid})
+	</insert>
+	<update id="deleteReply" parameterType="Integer">
+		update reply2
+		set reply_status = 'n'
+		where reply_no = #{reply_no}
+	</update>
+</mapper>

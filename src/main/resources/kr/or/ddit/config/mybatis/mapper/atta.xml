@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="atta">
+	<select id="getAttaList" parameterType="Integer" resultType="attaVo">
+		select *
+		from attachment2
+		where post_no = ${post_no}
+	</select>
+	
+	<insert id="insertAtta" parameterType="attaVo">
+		insert into attachment2
+		values(atta_seq2.nextval, #{atta_nm}, #{atta_path}, #{post_no})
+	</insert>
+	
+	<delete id="deleteAtta" parameterType="Integer">
+		delete attachment2
+		where atta_no = #{atta_no}
+	</delete>
+	
+	<select id="getAtta" parameterType="Integer" resultType="attaVo">
+		select *
+		from attachment2
+		where atta_no = #{atta_no}
+	</select>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+	<select id="getpostList" parameterType="Map" resultType="postVo">
+		select a.*
+		from
+		        (select rownum rn, a.*
+		        from
+		                (select post_gn, 
+		                            post_no, 
+		                            post_title,
+		                            post_cont,
+		                            userid,
+		                            post_date,
+		                            parent_post_no,
+		                            board_no,
+		                            post_status,
+		                            level
+		                from post2
+		                where board_no = #{board_no}
+		                start with parent_post_no is null
+		                connect by prior post_no = parent_post_no
+		                ORDER SIBLINGS BY post_gn desc, post_no) a) a
+		where rn between #{page_size}*(#{page}-1) + 1 and #{page}*#{page_size}
+	</select>
+	
+	<select id="getPostTotalCnt" parameterType="Integer" resultType="Integer">
+		select count(*)
+		from post2
+		where board_no = #{board_no}
+	</select>
+	
+	<insert id="insertPost" parameterType="postVo">
+		insert into post2
+		values(post_seq2.nextval, #{board_no}, #{post_title}, #{post_cont}, sysdate, 'y', #{userid}, case when #{parent_post_no, jdbcType=INTEGER}=0 then null else #{parent_post_no} end, case when #{post_gn, jdbcType=INTEGER} = 0 then post_seq2.currval else #{post_gn} end)
+		
+		<selectKey resultType="Integer" keyProperty="post_no">
+				select post_seq2.currval as post_no
+				from dual
+		</selectKey>
+	</insert>
+	
+	<select id="getPost" parameterType="postVo" resultType="postVo" >
+		select *
+		from post2
+		where board_no = #{board_no}
+		and post_no = #{post_no}
+	</select>
+	
+	<update id="updatePost" parameterType="postVo">
+		update post2
+		set post_title = #{post_title},
+			post_cont = #{post_cont}
+		where post_no = #{post_no}
+	</update>
+	
+	<update id="deletePost" parameterType="Integer">
+		update post2
+		set post_status = 'n'
+		where post_no = #{post_no}
+	</update>
+</mapper>
